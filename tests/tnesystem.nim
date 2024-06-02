@@ -104,3 +104,12 @@ test "addEqForObject codegen":
     .strip(leading = true, trailing = false)
 
   check expected == got
+
+test "convert between string and seq":
+  let s = "hello"
+  let bs: seq[byte] = @[0x68, 0x65, 0x6c, 0x6c, 0x6f]
+  let cs: seq[char] = @['h', 'e', 'l', 'l', 'o']
+  check s.strToByteSeq == bs
+  check s.strToCharSeq == cs
+  check bs.arrayToString == s
+  check cs.arrayToString == s

@@ -68,3 +68,33 @@ template addEqForObject*(t: typedesc, mustExport: bool = true) =
     proc `==`*(a, b: t): bool = objEqImpl(a, b)
   else:
     proc `==`(a, b: t): bool = objEqImpl(a, b)
+
+func strToByteSeq*(str: string): seq[byte] {.inline.} =
+  ## Converts a string to the corresponding `byte` sequence.
+  ##
+  ## See Nim issue [#14810](https://github.com/nim-lang/Nim/issues/14810).
+  ##
+  ## The implementation is adapted from
+  ## [this comment](https://github.com/nim-lang/Nim/issues/14810#issuecomment-721809890).
+  @(str.toOpenArrayByte(0, str.high))
+
+func strToCharSeq*(str: string): seq[char] {.inline.} =
+  ## Converts a string to the corresponding `char` sequence.
+  ##
+  ## See Nim issue [#14810](https://github.com/nim-lang/Nim/issues/14810).
+  ##
+  ## The implementation is adapted from
+  ## [this comment](https://github.com/nim-lang/Nim/issues/14810#issuecomment-721809890).
+  @(str.toOpenArray(0, str.high))
+
+func arrayToString*[T: byte|char](data: openArray[T]): string {.inline.} =
+  ## Converts a `byte` or `char` sequence to the corresponding string.
+  ##
+  ## See Nim issue [#14810](https://github.com/nim-lang/Nim/issues/14810).
+  ##
+  ## The implementation is adapted from
+  ## [this comment](https://github.com/nim-lang/Nim/issues/14810#issuecomment-721809890).
+  let length = data.len
+  if length > 0:
+    result = newString(length)
+    copyMem(result.cstring, data[0].unsafeAddr, length)

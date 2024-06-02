@@ -10,3 +10,6 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 2.0.4"
+
+taskRequires "test", "nimcrypto ~= 0.6.0"
+taskRequires "test", "checksums ~= 0.1.0"
