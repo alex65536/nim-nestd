@@ -7,7 +7,7 @@ when defined(posix):
   test "toTime for Timespec":
     let timespec = Timespec(tv_sec: posix.Time(1717268996), tv_nsec: 123456789)
     let time: Time = timespec.toTime
-    check time.format("yyyy-MM-dd HH:mm:ss'.'fffffffff") == "2024-06-01 21:09:56.123456789"
+    check time.format("yyyy-MM-dd HH:mm:ss'.'fffffffff", utc()) == "2024-06-01 19:09:56.123456789"
 
   test "stat and lstat":
     let tempDir = createTempDir("tneposix_", "").Path

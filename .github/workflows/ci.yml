@@ -13,7 +13,7 @@ jobs:
         - ubuntu-latest
         - macos-latest
         nim:
-        - binary:2.0.4
+        - 2.0.4
 
     steps:
       - name: Checkout
