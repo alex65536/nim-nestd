@@ -16,8 +16,8 @@ func doReallyEscape(s: var string, r: Rune) {.inline.} =
     for i in countdown(28, 0, 4):
       s &= hexChars[(r shr i) and 15]
 
-proc appendEsc(s: var string, r: Rune, shouldEscape: proc(r: Rune): bool, toSlash: set[
-    char]) {.inline.} =
+func appendEsc(s: var string, r: Rune, shouldEscape: proc(r: Rune): bool,
+    toSlash: set[char]) {.inline, effectsOf: shouldEscape.} =
   if r.int < 0x80:
     let c = r.char
     case c:
@@ -46,8 +46,8 @@ type
     eoEscapeSingleQuote ## Replaces `'` by `\'`
     eoEscapeDoubleQuote ## Replaces `"` by `\"`
 
-proc escapeUnicode*(s: string, shouldEscape: proc(r: Rune): bool, prefix = "\"", suffix = "\"",
-    options = {eoEscapeDoubleQuote}): string {.inline.} =
+func escapeUnicode*(s: string, shouldEscape: proc(r: Rune): bool, prefix = "\"", suffix = "\"",
+    options = {eoEscapeDoubleQuote}): string {.inline, effectsOf: shouldEscape.} =
   ## Escapes a string `s`.
   ##
   ## .. note:: The escaping scheme is different from `strutils.escape`.
