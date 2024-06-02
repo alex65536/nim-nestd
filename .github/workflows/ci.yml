@@ -1,0 +1,27 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - windows-latest
+        - ubuntu-latest
+        - macos-latest
+        nim:
+        - binary:2.0.4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Nim
+        uses: iffy/install-nim@v5
+        with:
+          version: ${{ matrix.nim }}
+      - run: nim --version
+      - name: Run tests
+        run: nimble -y test
