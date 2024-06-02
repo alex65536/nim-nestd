@@ -26,6 +26,8 @@ task pretty, "Prettify the sources":
 
 task docs, "Generate documentaion":
   proc walk(dir: string) =
+    if dir.endsWith "/private":
+      return
     for f in dir.listFiles:
       if f.endsWith ".nim":
         exec "nimble doc --project --docroot --outdir:docs --styleCheck:hint " & f
