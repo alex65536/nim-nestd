@@ -18,10 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Nim
-        uses: iffy/install-nim@v5
+      - name: Setup Nim environment
+        uses: jiro4989/setup-nim-action@v1.5.1
         with:
-          version: ${{ matrix.nim }}
+          nim-version: ${{ matrix.nim }}
       - run: nim --version
       - name: Run tests
         run: nimble -y test
