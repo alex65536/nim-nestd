@@ -14,14 +14,15 @@ jobs:
         - macos-latest
         nim:
         - 2.0.4
+        - devel
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Nim environment
-        uses: jiro4989/setup-nim-action@v1.5.1
+      - name: Setup Nim
+        uses: iffy/install-nim@v4.5.0
         with:
-          nim-version: ${{ matrix.nim }}
+          version: ${{ matrix.nim }}
       - run: nim --version
       - name: Run tests
         run: nimble -y test
