@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "Alexander Kernozhitsky"
 description   = "Everything that should have been in Nim's standard library, but is missing."
 license       = "MIT"
