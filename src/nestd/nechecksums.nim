@@ -62,7 +62,7 @@ proc checksumFile*[Checksum](path: Path, c: var Checksum, bufSize: int = default
   ## Computes a checksum from file located at `path`, using context `c` of type `Checksum`.
   ##
   ## See `checksumStream`_ for more details.
-  let stream = newFileStream(path.string, fmRead)
+  let stream = openFileStream(path.string, fmRead)
   defer: stream.close()
   stream.checksumStream(c, bufSize)
 
