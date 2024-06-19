@@ -1,7 +1,7 @@
 import std/[times, posix, paths, oserrors]
 
 proc stat*(p: Path): Stat =
-  ## Returns file status in a `Stat` structure, without resolving symbolic links.
+  ## Returns file status in a `Stat` structure, with resolving symbolic links.
   if stat(p.cstring, result) != 0:
     raiseOSError(osLastError(), p.string)
 
