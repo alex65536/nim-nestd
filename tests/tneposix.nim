@@ -2,7 +2,7 @@ when defined(posix):
   import unittest
   import std/[times, paths, tempfiles, dirs, symlinks]
   import std/posix except Time
-  import nestd/neposix
+  import nestd/neposix_utils
 
   test "toTime for Timespec":
     let timespec = Timespec(tv_sec: posix.Time(1717268996), tv_nsec: 123456789)
