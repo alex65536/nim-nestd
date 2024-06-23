@@ -41,8 +41,8 @@ func appendEsc(s: var string, r: Rune, shouldEscape: proc(r: Rune): bool,
     s &= r
 
 type
-  EscapeOptions* = enum
-    ## Options for `escapeUnicode`_
+  EscapeFlag* = enum
+    ## Flag for `escapeUnicode`_
     eoEscapeSingleQuote ## Replaces `'` by `\'`
     eoEscapeDoubleQuote ## Replaces `"` by `\"`
 
