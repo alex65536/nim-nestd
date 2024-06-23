@@ -1,6 +1,6 @@
 when defined(posix):
   import unittest
-  import std/[times, paths, tempfiles, dirs, symlinks]
+  import std/[times, paths, tempfiles, dirs, files, symlinks]
   import std/posix except Time
   import nestd/neposix_utils
 
@@ -24,3 +24,20 @@ when defined(posix):
     check (filePath.lstat.st_mode.cint and S_IFMT) == S_IFREG
     check linkPath.lstat.st_size == linkPath.string.len
     check (linkPath.lstat.st_mode.cint and S_IFMT) == S_IFLNK
+
+  test "rmdir":
+    let tempDir = createTempDir("tneposix_", "").Path
+    defer: tempDir.removeDir
+    let innerDir = tempDir / Path("dir")
+    let innerFile = innerDir / Path("file.txt")
+    innerDir.createDir
+    innerDir.removeEmptyDir
+    check not innerDir.dirExists
+    innerDir.createDir
+    writeFile(innerFile.string, "Hello")
+    expect OSError:
+      innerDir.removeEmptyDir
+    check innerDir.dirExists
+    innerFile.removeFile
+    innerDir.removeEmptyDir
+    check not innerDir.dirExists

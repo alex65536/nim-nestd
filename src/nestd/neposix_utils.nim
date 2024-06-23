@@ -13,3 +13,8 @@ proc lstat*(p: Path): Stat =
 proc toTime*(t: Timespec): times.Time =
   ## Converts between `posix.Timespec` and `times.Time`
   fromUnix(t.tv_sec.int64) + nanoseconds(t.tv_nsec)
+
+proc removeEmptyDir*(src: Path) =
+  ## Like `removeDir`, but doesn't remove the directory recursively and throws an error if the
+  ## directory is non-empty.
+  if rmdir(src.string.cstring) < 0: raiseOSError(osLastError(), src.string)
