@@ -15,6 +15,7 @@ jobs:
         nim:
         - 2.0.4
         - 2.0.6
+        - 2.0.8
         - devel
 
     steps:
